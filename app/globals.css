@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
 :root {
+  /* Brand */
+  --brand-red: #ff2d2d;
+  
+  /* Light Mode - Pure & Clean */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a; 
+  --card: #f1f5f9;
+  --muted: #64748b;
+  --border: #e2e8f0;
+}
+
+/* Explicitly override when .dark class is present */
+.dark {
+  --background: #050708;
+  --foreground: #ffffff;
+  --card: #0a0c0d;
+  --muted: #94a3b8;
+  --border: #1e293b;
 }
 
 @theme inline {
+  --color-primary: var(--brand-red);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-card: var(--card);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+
+  /* Animations */
+  --animate-plasma: plasma 15s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 40s linear infinite;
+
+  @keyframes plasma {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(10px, -20px) scale(1.1); }
+    66% { transform: translate(-10px, 10px) scale(0.9); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - 1.5rem)); }
+  }
+
+  @keyframes marquee-reverse {
+    from { transform: translateX(calc(-100% - 1.5rem)); }
+    to { transform: translateX(0); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  body {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6, p, span, a {
+    color: var(--foreground);
+    transition: color 0.3s ease;
+  }
+
+  .text-muted {
+    color: var(--muted);
+  }
+}
+
+@layer utilities {
+  /* FIX: Regular CSS selectors MUST go inside utilities or base, NOT @theme */
+  .pause-on-hover:hover .animate-marquee,
+  .pause-on-hover:hover .animate-marquee-reverse {
+    animation-play-state: paused;
+  }
+
+  .glass {
+    @apply backdrop-blur-xl border border-white/10;
+    background: color-mix(in srgb, var(--card), transparent 30%);
+  }
+
+  .text-blood-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-primary to-[#8b0000];
+  }
 }
