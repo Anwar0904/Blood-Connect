@@ -81,6 +81,13 @@ export default function AdminLayout({
     }
   };
 
+  const handleLogout = async () => {
+    // close any open UI and sign out
+    setIsProfileDropdownOpen(false);
+    setIsProfileModalOpen(false);
+    await signOut();
+  };
+
   if (!mounted) return null;
 
   return (

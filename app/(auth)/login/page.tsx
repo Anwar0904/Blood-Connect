@@ -124,7 +124,7 @@ export default function LoginPage() {
                 <input type="checkbox" className="h-4 w-4 text-red-600 border-border rounded" />
                 <label className="ml-2 block text-xs font-bold text-muted-foreground">Remember me</label>
               </div>
-              <Link href="/forgot-password" size={16} className="text-xs font-bold text-red-600 hover:underline">Forgot password?</Link>
+              <Link href="/forgot-password" className="text-xs font-bold text-red-600 hover:underline">Forgot password?</Link>
             </div>
 
             <button

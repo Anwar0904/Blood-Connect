@@ -63,10 +63,4 @@ export const authOptions: NextAuthOptions = {
 // 2. Export named functions directly (This solves the parsing error)
 const handler = NextAuth(authOptions);
 
-export async function GET(req: Request, res: Response) {
-  return handler(req, res);
-}
-
-export async function POST(req: Request, res: Response) {
-  return handler(req, res);
-}
+export { handler as GET, handler as POST };
